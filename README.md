@@ -49,6 +49,6 @@ In the Unit pruning method, after dropping 70% of weights in each layer, the acc
 
 After using the same technique on networks with lesser number of layers, I observed that the % of weights that can be dropped without hurting performance is higher for networks with more number of layers.
 # Guide
-pruning.py file contains all the code for the pruning.
+The pruning.py file contains all the code for implementing this method.
 
-Currently the file uses the pre_trained weights(pre_trained.h5), comment the load weights( line 51) and uncomment line48,49 to retrain the model for any modifications.
+Currently the file uses the pre_trained weights(pre_trained.h5), comment the load weights (line 51) and uncomment lines 48, 49 to retrain the model with modifications.
