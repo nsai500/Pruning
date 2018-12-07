@@ -6,20 +6,20 @@ def weight_prune(weight, k):
 	weight_temp = weight
 	weight_temp = np.absolute(weight_temp)
 	weight_temp = np.sort(weight_temp, axis = None)
-	threshold = weight_temp[int(k*weight_temp.size)]
-	weight[(weight < threshold) & (weight > -threshold)] = 0
+	threshold = weight_temp[int(k*weight_temp.size)] #Finding the threshold weight
+	weight[(weight < threshold) & (weight > -threshold)] = 0 #Setting the lowest k% weights to 0
 	b = []
 	b.append(weight)
 	return b
 
 def unit_prune(weight, k):
-	weight_temp = np.linalg.norm(weight, axis=0)
+	weight_temp = np.linalg.norm(weight, axis=0) #Finding norm of each column
 	sorted = np.sort(weight_temp)
-	threshold = sorted[int(k*sorted.size)]
+	threshold = sorted[int(k*sorted.size)] #Finding threshold norm
 	j=0
 	for i in weight_temp:
 		if(i<threshold):
-			weight[:, j] = 0
+			weight[:, j] = 0 #set jth column in weight matrix to 0 because it's norm is less than that of threshold
 		j=j+1
 	b = []
 	b.append(weight)
@@ -28,7 +28,7 @@ def unit_prune(weight, k):
 input = tf.keras.datasets.mnist
 
 (x_train, y_train),(x_test, y_test) = input.load_data()
-x_train, x_test = x_train / 255.0, x_test / 255.0
+x_train, x_test = x_train/255.0, x_test/255.0
 
 model = tf.keras.models.Sequential([
   tf.keras.layers.Flatten(input_shape=(28, 28)),
@@ -50,6 +50,7 @@ print(model.summary())
 
 model.load_weights('pre_trained.h5')
 
+#Weight Pruning
 results = []
 x=[]
 y=[]
@@ -57,14 +58,14 @@ per = [0, 25, 50, 60, 70, 80, 90, 95, 97, 99]
 
 for k2 in per:
 	k = k2*0.01
-	for i in range(2,5):
+	for i in range(1,5):
 		weight = model.layers[i].get_weights()[0]
 		model.layers[i].set_weights(weight_prune(weight, k))
 	score, acc = model.evaluate(x_test, y_test)
 	results.append("k = " + str(k) + " accuracy = " + str(acc))
 	x.append(k*100)
 	y.append(acc*100)
-	model.load_weights('pre_trained.h5')
+	model.load_weights('pre_trained.h5') #Reloading weights
 
 for result in results:
 	print(result)
@@ -75,6 +76,7 @@ plt.ylabel('Accuracy %')
 plt.title('Weight Pruning')
 plt.show()
 
+#Unit Pruning
 model.load_weights('pre_trained.h5')
 
 results = []
@@ -84,7 +86,7 @@ per = [0, 25, 50, 60, 70, 80, 90, 95, 97, 99]
 
 for k2 in per:
 	k = k2*0.01
-	for i in range(2,5):
+	for i in range(1,5):
 		weight = model.layers[i].get_weights()[0]
 		model.layers[i].set_weights(unit_prune(weight, k))
 	score, acc = model.evaluate(x_test, y_test)
