@@ -6,9 +6,10 @@ effect deleting the corresponding output neuron. Here to achieve sparsity of k%,
 matrix according to their L2-norm |w| = ![](http://latex.codecogs.com/gif.latex?%5Csqrt%7B%5Csum_%7Bi%3D1%7D%5E%7BN%7D%20%28x_%7Bi%7D%29%5E%7B2%7D%7D) and delete the smallest k%.
 
 # Results
-Unit Pruning
+Weight Pruning
+
 | k%            | Accuracy%     |
-| ------------- |:-------------:|
+| ------------- | ------------- |
 | 0             | 98.08         |
 | 25            | 98.02         |
 | 50            | 98.05         |
@@ -19,11 +20,13 @@ Unit Pruning
 | 95            | 85.32         |
 | 97            | 57.90         |
 | 99            | 17.06         |
+
 ![](https://github.com/nsai500/Pruning/blob/master/weight_pruning.png?raw=true)
 
-Weight Pruning
+Unit Pruning
+
 | k%            | Accuracy%     |
-| ------------- |:-------------:|
+| ------------- | ------------- |
 | 0             | 98.08         |
 | 25            | 98.08         |
 | 50            | 98.01         |
@@ -34,6 +37,7 @@ Weight Pruning
 | 95            | 20.05         |
 | 97            | 15.47         |
 | 99            | 10.03         |
+
 ![](https://github.com/nsai500/Pruning/blob/master/unit_pruning.png?raw=true)
 
 # Observations
