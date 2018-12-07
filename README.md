@@ -41,7 +41,7 @@ Unit Pruning
 ![](https://github.com/nsai500/Pruning/blob/master/unit_pruning.png?raw=true)
 
 # Observations
-From the graphs, we can observe that the weight pruning method works better in identifying the weights which don't contribute to the output than the unit pruning method. This might be due to the fact that unit pruning removes entire columns which have lesser L2-norm even if they contain fewer important weights.
+From the graphs, we can observe that the weight pruning method works better in identifying the weights which don't contribute to the output than the unit pruning method. This might be due to the fact that unit pruning removes entire columns which have lesser L2-norm even if they contain some important weights.
 
 In the Weight pruning method, even after pruning 90% of weights in each layer, the accuracy remains at 95.49%. We can say only 10%(approx. 238,600 out of 2,386,000 parameters) are contributing to the final output. This sparsity can be used to decrease network size and to increase performance.
 
